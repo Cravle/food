@@ -1,14 +1,23 @@
-function slider() {
+function slider({
+    container,
+    slide,
+    nextArrow,
+    prevArrow,
+    totalCounter,
+    currentCounter,
+    wrapper,
+    field
+}) {
     // ?SLIDER ------------------------------------------------------------------------
 
-    const slides = document.querySelectorAll('.offer__slide'),
-        slider = document.querySelector('.offer__slider'),
-        prev = document.querySelector('.offer__slider-prev'),
-        next = document.querySelector('.offer__slider-next'),
-        total = document.querySelector('#total'),
-        current = document.querySelector('#current'),
-        slidesWrapper = document.querySelector('.offer__slider-wrapper'),
-        slidesField = document.querySelector('.offer__slider-inner'),
+    const slides = document.querySelectorAll(slide),
+        slider = document.querySelector(container),
+        prev = document.querySelector(prevArrow),
+        next = document.querySelector(nextArrow),
+        total = document.querySelector(totalCounter),
+        current = document.querySelector(currentCounter),
+        slidesWrapper = document.querySelector(wrapper),
+        slidesField = document.querySelector(field),
         width = window.getComputedStyle(slidesWrapper).width;
     let slideIndex = 1;
     let offset = 0;
@@ -60,7 +69,7 @@ transition: opacity .6s ease;
         dots.push(dot);
     }
 
-    const noPx = string => string.replace(/\D/g, '');
+    const noPx = string => +string.replace(/\D/g, '');
 
     const ifZero = () => {
         if (slides.length < 10) {
@@ -77,7 +86,7 @@ transition: opacity .6s ease;
 
 
     next.addEventListener('click', () => {
-        if (offset === noPx(width) * (slides.length - 1)) {
+        if (offset == noPx(width) * (slides.length - 1)) {
             offset = 0;
         } else {
             offset += noPx(width);
@@ -85,7 +94,7 @@ transition: opacity .6s ease;
 
         slidesField.style.transform = `translateX(-${offset}px)`;
 
-        if (slideIndex === slides.length) {
+        if (slideIndex == slides.length) {
             slideIndex = 1;
         } else {
             slideIndex++;
@@ -129,4 +138,4 @@ transition: opacity .6s ease;
     });
 }
 
-module.exports = slider;
+export default slider;
